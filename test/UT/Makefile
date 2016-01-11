@@ -34,8 +34,10 @@ ifndef CURL_DIR
     CURL_DIR=/usr/local/curl
 endif
 
+LIBEST_COREDIR = ../../src/est
+
 # include directories
-INCLUDES = -I../../src/est -I../.. -I../util -I$(OPENSSL_DIR)/include -I$(CURL_DIR)/include 
+INCLUDES = -I$(LIBEST_COREDIR) -I../.. -I../util -I$(OPENSSL_DIR)/include -I$(CURL_DIR)/include 
 
 # C++ compiler flags (-g -O2 -Wall)
 CCFLAGS = -Wall -g -DHAVE_CUNIT -DNO_SSL_DL
@@ -47,7 +49,7 @@ CC = gcc
 LDFLAGS += -lcunit -ldl -lpthread -lest -lssl -lcrypto -lcurl
 
 # library paths
-LIBS = -L../../src/est/.libs -L$(OPENSSL_DIR)/lib -L$(CURL_DIR)/lib $(LDFLAGS) 
+LIBS = -L$(LIBEST_COREDIR)/.libs -L$(OPENSSL_DIR)/lib -L$(CURL_DIR)/lib $(LDFLAGS) 
 
 
 .SUFFIXES: .c
@@ -57,7 +59,8 @@ default:	runtest
 .c.o:
 	$(CC) $(INCLUDES) $(CCFLAGS) -c $< -o $@
 
-runtest: $(OBJ) ../../src/est/.libs/libest.*
+runtest: $(OBJ) $(LIBEST_COREDIR)/.libs/libest.*
+	cd $(LIBEST_COREDIR) && $(MAKE)
 	$(CC) -o $(OUT) $(OBJ) $(LIBS) 
 
 clean:

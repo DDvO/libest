@@ -13,7 +13,9 @@ else
 PTHREAD=-lpthread
 endif
 
-estproxy_LDFLAGS = -L../../src/est/.libs -lest
-estproxy_DEPENDENCIES = ../../src/est/.libs/libest.*
+LIBEST_COREDIR = ../../src/est
+SUBDIRS = $(LIBEST_COREDIR)
+estproxy_LDFLAGS = -L$(LIBEST_COREDIR)/.libs -lest
+estproxy_DEPENDENCIES = $(LIBEST_COREDIR)/.libs/libest.*
 
 EXTRA_DIST = createRA.sh runproxy.sh estExampleCA.cnf

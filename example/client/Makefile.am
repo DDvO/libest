@@ -14,5 +14,8 @@ PTHREAD=
 else
 PTHREAD=-lpthread
 endif
-estclient_LDFLAGS = -L../../src/est/.libs -lest
-estclient_DEPENDENCIES = ../../src/est/.libs/libest.*
+
+LIBEST_COREDIR = ../../src/est
+SUBDIRS = $(LIBEST_COREDIR)
+estclient_LDFLAGS = -L$(LIBEST_COREDIR)/.libs -lest
+estclient_DEPENDENCIES = $(LIBEST_COREDIR)/.libs/libest.*

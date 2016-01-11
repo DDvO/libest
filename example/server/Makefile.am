@@ -15,7 +15,9 @@ else
 PTHREAD=-lpthread
 endif
 
-estserver_LDFLAGS = -L../../src/est/.libs -lest
-estserver_DEPENDENCIES = ../../src/est/.libs/libest.*
+LIBEST_COREDIR = ../../src/est
+SUBDIRS = $(LIBEST_COREDIR)
+estserver_LDFLAGS = -L$(LIBEST_COREDIR)/.libs -lest
+estserver_DEPENDENCIES = $(LIBEST_COREDIR)/.libs/libest.*
 
 EXTRA_DIST = ossl_srv.h apps.h createCA.sh ext.cnf ESTcommon.sh runserver.sh estExampleCA.cnf extExampleCA.cnf
